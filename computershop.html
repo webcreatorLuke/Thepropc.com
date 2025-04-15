@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PC Shop</title>
+  <style>
+    .product {
+      border: 1px solid #ccc;
+      padding: 15px;
+      width: 250px;
+      margin: 20px auto;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    .product img {
+      max-width: 100%;
+    }
+    .price {
+      font-size: 1.5em;
+      color: #333;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="product">
+    <h2>Premium PC</h2>
+    <img src="pc-image.jpg" alt="Premium PC">
+    <p class="price">$<span id="price">1000</span></p>
+    <button onclick="addToCart()">Add to Cart</button>
+  </div>
+
+  <script>
+    // Product object with fixed price of $1000
+    const product = {
+      name: "Premium PC",
+      price: 1000,
+      description: "A great PC designed for performance and reliability.",
+      image: "pc-image.jpg"
+    };
+
+    // Display price in case you want to update it dynamically
+    document.getElementById("price").innerText = product.price;
+
+    // Example function for adding the product to a shopping cart
+    function addToCart() {
+      // In a real application, you'd integrate backend functionality here.
+      alert(`"${product.name}" added to your cart for $${product.price}!`);
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Authentication</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    .auth-container {
+      margin: 50px auto;
+      padding: 20px;
+      width: 300px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #welcome-message {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to My Website</h1>
+  <div class="auth-container" id="auth-container">
+    <button id="signInButton">Sign In with Google</button>
+    <button id="signUpButton">Sign Up with Google</button>
+  </div>
+  <div id="welcome-message">
+    <h2>Welcome back!</h2>
+    <p>You are successfully logged in.</p>
+  </div>
+
+  <script>
+    // Initialize Google OAuth2
+    const clientId = "YOUR_GOOGLE_CLIENT_ID"; // Replace with your actual Google Client ID
+
+    window.onload = function () {
+      // Configure Google Sign-In
+      google.accounts.id.initialize({
+        client_id: clientId,
+        callback: handleCredentialResponse,
+      });
+
+      // Render "Sign In with Google" button
+      google.accounts.id.renderButton(
+        document.getElementById("signInButton"),
+        { theme: "outline", size: "large" }
+      );
+
+      // Additional prompt for existing login
+      google.accounts.id.prompt();
+    };
+
+    // Handle the login response
+    function handleCredentialResponse(response) {
+      console.log("Encoded JWT ID token: " + response.credential);
+
+      // Simulate redirecting to your site after login
+      document.getElementById("auth-container").style.display = "none";
+      document.getElementById("welcome-message").style.display = "block";
+
+      // Save login state
+      localStorage.setItem("userLoggedIn", true);
+    }
+
+    // "Sign Up with Google" button functionality
+    document.getElementById("signUpButton").onclick = function () {
+      alert("Sign Up redirects to Google Sign-In to create a new account (if needed).");
+    };
+
+    // Ensure user stays logged in across page reloads
+    if (localStorage.getItem("userLoggedIn")) {
+      document.getElementById("auth-container").style.display = "none";
+      document.getElementById("welcome-message").style.display = "block";
+    }
+
+    // Fix for origin error
+    // Ensure you are running this on a valid domain (e.g., localhost or a live server)
+    if (window.location.origin === "file://") {
+      alert("Google OAuth2 does not work with the file:// protocol. Please run this on a local server (e.g., http://localhost) or deploy to a live server.");
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
